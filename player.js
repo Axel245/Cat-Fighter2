@@ -9,7 +9,11 @@ var ANIM_JUMP_RIGHT = 4;
 var ANIM_WALK_RIGHT = 5;
 var ANIM_REG_PUNCH_RIGHT = 6;
 var ANIM_REG_PUNCH_LEFT = 7;
-var ANIM_MAX = 8;
+var ANIM_KICK_RIGHT = 8;
+var ANIM_KICK_LEFT = 9;
+var ANIM_UPCUT_RIGHT = 10;
+var ANIM_UPCUT_LEFT = 11;
+var ANIM_MAX = 12;
 var Player = function() {	
 	this.sprite = new Sprite("herospritesheet3.png");
 	this.sprite.buildAnimation(10, 13, 64, 64, 0.15, // 0
@@ -28,6 +32,14 @@ var Player = function() {
 			[70, 71, 72, 73, 74, 75]);
 	this.sprite.buildAnimation(10, 13, 64, 64, 0.05,
 			[80, 81, 82, 83, 84, 85]);    //7
+	this.sprite.buildAnimation(10, 13, 64, 64, 0.05,
+			[90, 91, 92, 93, 94, 95]);  // 8
+	this.sprite.buildAnimation(10, 13, 64, 64, 0.05,
+			[100, 101, 102, 103, 104, 105]);  //9
+	this.sprite.buildAnimation(10, 13, 64, 64, 0.05,
+			[110, 111, 112, 113, 114, 115, 116, 117, 118, 119]);  //10
+	this.sprite.buildAnimation(10, 13, 64, 64, 0.05,
+			[120, 121, 122, 123, 124, 125, 126, 127, 128, 129]);  //11
 	
 	for(var i=0; i<ANIM_MAX; i++)
 	{
@@ -44,6 +56,8 @@ var Player = function() {
 	this.falling = true;
 	this.jumping = false;
 	this.punch = false;
+	this.kick = false;
+	this.upcut = false;
 	
 	this.direction = LEFT; 
 	this.isDead = false;
@@ -63,18 +77,18 @@ Player.prototype.update = function(deltaTime)
 		left = true;
 		this.direction = LEFT;
 		if(this.sprite.currentAnimation != ANIM_WALK_LEFT &&
-			this.jumping == false && this.punch == false)
+			this.jumping == false && this.punch == false && this.kick == false && this.upcut == false)
 			this.sprite.setAnimation(ANIM_WALK_LEFT);
 	}
 	else if(keyboard.isKeyDown(keyboard.KEY_RIGHT) == true) {
 		right = true;
 		this.direction = RIGHT;
 		if(this.sprite.currentAnimation != ANIM_WALK_RIGHT &&
-			this.jumping == false && this.punch == false)
+			this.jumping == false && this.punch == false && this.kick == false && this.upcut == false)
 			this.sprite.setAnimation(ANIM_WALK_RIGHT);
 	}
 	else {
-		if(this.jumping == false && this.falling == false && this.punch == false)
+		if(this.jumping == false && this.falling == false && this.punch == false && this.kick == false && this.upcut == false)
 		{
 			if(this.direction == LEFT)
 			{
@@ -110,9 +124,39 @@ Player.prototype.update = function(deltaTime)
 		}
 	
 	}
-else
+	else
 	{
 		this.punch = false;
+	}
+	
+	if(keyboard.isKeyDown(keyboard.KEY_X) == true)
+	{
+		this.kick = true;
+		if(this.direction == LEFT && this.sprite.currentAnimation != ANIM_KICK_LEFT) {
+			this.sprite.setAnimation(ANIM_KICK_LEFT);
+		}
+		else if(this.direction == RIGHT && this.sprite.currentAnimation != ANIM_KICK_RIGHT) {
+			this.sprite.setAnimation(ANIM_KICK_RIGHT);
+		}
+	}
+	else
+	{
+		this.kick = false;
+	}
+	
+	if(keyboard.isKeyDown(keyboard.KEY_C) == true)
+	{
+		this.upcut = true;
+		if(this.direction == LEFT && this.sprite.currentAnimation != ANIM_UPCUT_LEFT) {
+			this.sprite.setAnimation(ANIM_UPCUT_LEFT);
+		}
+		else if(this.direction == RIGHT && this.sprite.currentAnimation != ANIM_UPCUT_RIGHT) {
+			this.sprite.setAnimation(ANIM_UPCUT_RIGHT);
+		}
+	}
+	else
+	{
+		this.upcut = false;
 	}
 
 	
