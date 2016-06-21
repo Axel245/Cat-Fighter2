@@ -23,6 +23,10 @@ var Keyboard = function() {
 	this.KEY_Z = 90;
 	this.KEY_X = 88;
 	this.KEY_C = 67;
+	this.KEY_N1 = 97;
+	this.KEY_N2 = 98;
+	this.KEY_N3 = 99;
+	
 };
 
 Keyboard.prototype.onKeyDown = function(evt)

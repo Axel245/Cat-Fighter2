@@ -175,6 +175,7 @@ function initialize() {
 }
 var player = new Player();
 var keyboard = new Keyboard();
+var player2 = new Player2();
 
 
 function run()
@@ -186,6 +187,8 @@ function run()
 	drawMap();
 	player.update(deltaTime);
 	player.draw();
+	player2.update(deltaTime);
+	player2.draw();
 		
 	// update the frame counter 
 	fpsTime += deltaTime;

@@ -14,8 +14,8 @@ var ANIM_KICK_LEFT = 9;
 var ANIM_UPCUT_RIGHT = 10;
 var ANIM_UPCUT_LEFT = 11;
 var ANIM_MAX = 12;
-var Player = function() {	
-	this.sprite = new Sprite("herospritesheet3.png");
+var Player2 = function() {	
+	this.sprite = new Sprite("player2spritesheet.png");
 	this.sprite.buildAnimation(10, 13, 64, 64, 0.15, // 0
 			[20, 21, 22, 23, 24, 25, 26, 27]); 
 	this.sprite.buildAnimation(10, 13, 64, 64, 0.1, // 1
@@ -46,7 +46,7 @@ var Player = function() {
 		this.sprite.setAnimationOffset(i, -25, -18);
 	}
 	this.position = new Vector2();
-	this.position.set(2*TILE, 3*TILE );
+	this.position.set(4*TILE, 3*TILE );
 	
 	this.width = 64;
 	this.height = 64;
@@ -65,7 +65,7 @@ var Player = function() {
 	
 };
 
-Player.prototype.update = function(deltaTime)
+Player2.prototype.update = function(deltaTime)
 {	
 	this.sprite.update(deltaTime);
 	var left = false;
@@ -73,14 +73,14 @@ Player.prototype.update = function(deltaTime)
 	var jump = false;
 	
 	//check keypress events
-	if(keyboard.isKeyDown(keyboard.KEY_A) == true) {
+	if(keyboard.isKeyDown(keyboard.KEY_LEFT) == true) {
 		left = true;
 		this.direction = LEFT;
 		if(this.sprite.currentAnimation != ANIM_WALK_LEFT &&
 			this.jumping == false && this.punch == false && this.kick == false && this.upcut == false)
 			this.sprite.setAnimation(ANIM_WALK_LEFT);
 	}
-	else if(keyboard.isKeyDown(keyboard.KEY_D) == true) {
+	else if(keyboard.isKeyDown(keyboard.KEY_RIGHT) == true) {
 		right = true;
 		this.direction = RIGHT;
 		if(this.sprite.currentAnimation != ANIM_WALK_RIGHT &&
@@ -102,7 +102,7 @@ Player.prototype.update = function(deltaTime)
 			}
 	}
 }
-	if(keyboard.isKeyDown(keyboard.KEY_W) == true)
+	if(keyboard.isKeyDown(keyboard.KEY_UP) == true)
 	{
 		jump = true;
 		if(left == true) {
@@ -113,7 +113,7 @@ Player.prototype.update = function(deltaTime)
 	}
 	}
 	
-	if(keyboard.isKeyDown(keyboard.KEY_Z) == true)
+	if(keyboard.isKeyDown(keyboard.KEY_N1) == true)
 	{
 		this.punch = true;
 		if(this.direction == LEFT && this.sprite.currentAnimation != ANIM_REG_PUNCH_LEFT ) {
@@ -129,7 +129,7 @@ Player.prototype.update = function(deltaTime)
 		this.punch = false;
 	}
 	
-	if(keyboard.isKeyDown(keyboard.KEY_X) == true)
+	if(keyboard.isKeyDown(keyboard.KEY_N2) == true)
 	{
 		this.kick = true;
 		if(this.direction == LEFT && this.sprite.currentAnimation != ANIM_KICK_LEFT) {
@@ -144,7 +144,7 @@ Player.prototype.update = function(deltaTime)
 		this.kick = false;
 	}
 	
-	if(keyboard.isKeyDown(keyboard.KEY_C) == true)
+	if(keyboard.isKeyDown(keyboard.KEY_N3) == true)
 	{
 		this.upcut = true;
 		if(this.direction == LEFT && this.sprite.currentAnimation != ANIM_UPCUT_LEFT) {
@@ -258,7 +258,7 @@ Player.prototype.update = function(deltaTime)
 	}
 }
 
-Player.prototype.draw = function()
+Player2.prototype.draw = function()
 {
 	this.sprite.draw(context,
 		this.position.x, 	this.position.y);
